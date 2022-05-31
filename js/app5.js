@@ -60,32 +60,28 @@ function playDecodedAudio(decodedBuffer) {
 
 $("#b1").on('click', function() {
     a = audioPaths[0];
-    // getBuffer(a).then(function(buffer) {
-    //     console.log(buffer);
-    //     decodeAudio(buffer).then(function(decoded) {
-    //         playDecodedAudio(decoded);
-    //     });
-    // });
-    promises.push(getBuffer(a));
-});
-
-$('#b2').on('click', function(){
-    console.log(promises[0]);
-    promises[0].then(function(buffer) {
-        console.log(this);
+    getBuffer(a).then(function(buffer) {
+        console.log(buffer);
         decodeAudio(buffer).then(function(decoded) {
             playDecodedAudio(decoded);
         });
     });
+    // promises.push(getBuffer(a));
 });
 
 // $('#b2').on('click', function(){
-//     Promise.resolve(promises[1]).then(x => {
-//         let source = ctx.createBufferSource();
-//         source.buffer = x;
-//         source.connect(ctx.destination);
-//         source.start();
+//     console.log(promises[0]);
+//     promises[0].then(function(buffer) {
+//         console.log(this);
+//         decodeAudio(buffer).then(function(decoded) {
+//             playDecodedAudio(decoded);
+//         });
 //     });
 // });
+
+$("#b2").on('click', function() {
+    ctx.resume();
+    ctx.onstatechange = () => console.log(ctx.state);
+});
 
 console.log("done");
